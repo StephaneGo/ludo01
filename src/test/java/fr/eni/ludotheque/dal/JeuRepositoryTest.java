@@ -21,9 +21,9 @@ public class JeuRepositoryTest {
 	private JeuRepository jeuRepository;
 	
 	@Test
-	@DisplayName("test création client et adresse CAS POSITIF")
+	@DisplayName("test création jeu et liens vers genres CAS POSITIF")
 	@Transactional
-	public void testCreationClient() {
+	public void testCreationJeu() {
 		//Arrange
 		Jeu jeu = new Jeu("SkyJo", "refSkyJo", 5.6f );
 		jeu.setAgeMin(8);
