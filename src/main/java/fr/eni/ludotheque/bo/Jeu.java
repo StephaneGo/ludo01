@@ -14,11 +14,13 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
@@ -34,6 +36,7 @@ public class Jeu {
 	private String titre;
 	
 	@Column(length=13, nullable=false, unique=true)
+	@EqualsAndHashCode.Include
 	@NonNull private String reference;
 	
 	@Column(nullable=true)
