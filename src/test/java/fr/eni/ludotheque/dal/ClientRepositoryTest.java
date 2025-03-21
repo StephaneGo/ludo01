@@ -21,7 +21,7 @@ public class ClientRepositoryTest {
 	
 	@Test
 	@DisplayName("test création client et adresse CAS POSITIF")
-	@Transactional
+	@Transactional //Rollback les modifications après execution du test
 	public void testCreationClient() {
 		//Arrange
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
