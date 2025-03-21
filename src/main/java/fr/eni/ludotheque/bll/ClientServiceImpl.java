@@ -1,5 +1,6 @@
 package fr.eni.ludotheque.bll;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -30,6 +31,12 @@ public class ClientServiceImpl implements ClientService{
 			throw new DataNotFound("Client", id);
 		}
 		return optClient.get();
+	}
+
+	@Override
+	public List<Client> trouverClientsParNom(String nom) {
+		
+		return clientRepository.findByNomContaining(nom);
 	}
 
 	

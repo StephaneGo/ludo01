@@ -4,6 +4,8 @@ package fr.eni.ludotheque.bll;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
@@ -25,8 +27,8 @@ public class ClientServiceTest {
 	@MockitoBean
 	private ClientRepository clientRepository;
 	
-//	@Test
-//	@DisplayName("Ajout d'un client cas positif")
+	@Test
+	@DisplayName("Ajout d'un client cas positif")
 	public void testAjouterClientCasPositif() {
 		//Arrange
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
@@ -64,6 +66,25 @@ public class ClientServiceTest {
 		
 	}
 
+	@Test
+	@DisplayName("Trouver clients par nom contenant les caractères recherchés")
+	public void testTrouverClientsParNomCasNomConnu() {
+		//Arrange
+		String nom = "UPI";
+		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
+		Client clientATrouver = new Client("DUPIEUX", "Quentin", "e1", "tel1", adresse);
+		List<Client> listeClients = new ArrayList<>();
+		listeClients.add(clientATrouver);
+		when(clientRepository.findByNomContaining(nom)).thenReturn(listeClients);
+		
+		//Act
+		List<Client> clients = clientService.trouverClientsParNom(nom);
+		
+		//Assert
+		assertThat(clients.size()).isEqualTo(1);
+		
+	}
+	
 }
 
 

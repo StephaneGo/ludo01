@@ -9,4 +9,6 @@ public interface ClientService {
 	void ajouterClient(Client client);
 	
 	Client trouverClientParId(Integer id);
+	
+	List<Client> trouverClientsParNom(String nom);
 }
