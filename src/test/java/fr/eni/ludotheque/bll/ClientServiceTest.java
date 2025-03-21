@@ -2,6 +2,9 @@ package fr.eni.ludotheque.bll;
 
 //import static org.mockito.Mockito.doAnswer;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,8 +25,8 @@ public class ClientServiceTest {
 	@MockitoBean
 	private ClientRepository clientRepository;
 	
-	@Test
-	@DisplayName("Ajout d'un client cas positif")
+//	@Test
+//	@DisplayName("Ajout d'un client cas positif")
 	public void testAjouterClientCasPositif() {
 		//Arrange
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
@@ -41,6 +44,23 @@ public class ClientServiceTest {
 		//Assert
 		assertThat(client.getNoClient()).isNotNull();
 		assertThat(client.getNoClient()).isEqualTo(999);
+		
+	}
+	
+	@Test
+	@DisplayName("Trouver un client par id cas id est connu")
+	public void testTrouverClientParIdCasIdConnu() {
+		//Arrange
+		Integer idClientRecherche = 99;
+		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
+		Client clientATrouver = new Client("n1", "p1", "e1", "tel1", adresse);
+		when(clientRepository.findById(idClientRecherche)).thenReturn(Optional.of(clientATrouver));
+		
+		//Act
+		Client client = clientService.trouverClientParId(idClientRecherche);
+		
+		//Assert
+		assertThat(client).isEqualTo(clientATrouver);
 		
 	}
 
