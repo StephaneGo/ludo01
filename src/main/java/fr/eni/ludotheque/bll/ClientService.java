@@ -11,4 +11,6 @@ public interface ClientService {
 	Client trouverClientParId(Integer id);
 	
 	List<Client> trouverClientsParNom(String nom);
+	
+	void modifierClient(Client client);
 }

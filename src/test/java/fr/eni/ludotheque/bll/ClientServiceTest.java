@@ -17,6 +17,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.dal.ClientRepository;
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 public class ClientServiceTest {
@@ -85,6 +86,30 @@ public class ClientServiceTest {
 		
 	}
 	
+	/*
+	@Test
+	@DisplayName("Test modification complète client")
+	//@Transactional
+	public void testModifierClient() {
+		//Arrange 
+		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
+		Client client = new Client("nX", "pX", "eX", "telX", adresse);
+		org.mockito.Mockito.doAnswer((invocation) -> {
+			Client cli = invocation.getArgument(0);
+			cli.setNoClient(999);
+			return cli;
+						}).when(clientRepository).save(client);		
+		clientService.ajouterClient(client);
+
+		client.setEmail("bob@free.fr");
+		//Act
+		clientService.modifierClient(client);
+		
+		//Assert
+		Client client2 = clientService.trouverClientParId(client.getNoClient());
+		assertThat(client2.getEmail()).isEqualTo(client.getEmail());
+	}
+	*/
 }
 
 

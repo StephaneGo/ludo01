@@ -21,6 +21,9 @@ public class ClientServiceImpl implements ClientService{
 	public void ajouterClient(Client client) {
 		
 		clientRepository.save(client);
+		
+		
+		
 	}
 
 	@Override
@@ -37,6 +40,14 @@ public class ClientServiceImpl implements ClientService{
 	public List<Client> trouverClientsParNom(String nom) {
 		
 		return clientRepository.findByNomContaining(nom);
+	}
+
+	@Override
+	public void modifierClient(Client client) {
+		if(client.getNoClient()==null) {
+			throw new IllegalStateException();
+		}
+		clientRepository.save(client);
 	}
 
 	
