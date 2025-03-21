@@ -110,6 +110,17 @@ public class ClientServiceTest {
 		assertThat(client2.getEmail()).isEqualTo(client.getEmail());
 	}
 	*/
+	
+	@Test
+	@DisplayName("Test modification de l'adresse d'un client")
+	public void testModificationAdresseCasPositif() {
+		//
+		
+		//Act
+		//clientService.modifierAdresse(adresse);
+		
+	}
+	
 }
 
 

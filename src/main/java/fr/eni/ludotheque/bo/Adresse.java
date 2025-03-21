@@ -32,7 +32,7 @@ public class Adresse {
 	@Column(length = 100, nullable = false)
 	@NonNull private String ville;
 	
-	@OneToOne(mappedBy= "adresse")
-	private Client client;
-	
+//	@OneToOne(mappedBy= "adresse")
+//	private Client client;
+//	
 }
