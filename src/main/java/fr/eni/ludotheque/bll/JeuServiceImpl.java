@@ -1,5 +1,6 @@
 package fr.eni.ludotheque.bll;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +37,13 @@ public class JeuServiceImpl implements JeuService{
 		}
 		return optJeu.get();
 		
+	}
+
+
+	@Override
+	public List<Jeu> listeJeuxCatalogue() {
+		List<Jeu> jeux = jeuRepository.findAllJeuxAvecNbExemplaires();
+		return jeux;
 	}
 
 	

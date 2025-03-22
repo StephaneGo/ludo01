@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -50,6 +51,9 @@ public class Jeu {
 	@Column(nullable=false)
 	@NonNull
 	private float tarifJour;
+	
+	@Transient
+	private int nbExemplaires;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "JEUX_GENRES", 
