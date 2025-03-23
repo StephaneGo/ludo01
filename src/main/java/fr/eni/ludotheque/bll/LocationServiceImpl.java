@@ -45,7 +45,7 @@ public class LocationServiceImpl implements LocationService{
 
 	@Override
 	@Transactional
-	public void retourExemplaires(List<String> codebarres) {
+	public Facture retourExemplaires(List<String> codebarres) {
 		Facture facture = new Facture(LocalDateTime.now());
 		//facture
 		Location location = null;
@@ -59,7 +59,7 @@ public class LocationServiceImpl implements LocationService{
 			prix += (nbJours * location.getTarifJour());
 		}
 		facture.setPrix(prix);
-		
+		return facture;
 	}
 
 	@Override
