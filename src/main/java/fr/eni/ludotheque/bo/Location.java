@@ -28,9 +28,9 @@ public class Location {
 	@Basic(optional = false)
 	@NonNull private LocalDateTime dateDebut;
 	@Basic(optional = true)
-	@NonNull private LocalDateTime dateRetour;
+	private LocalDateTime dateRetour;
 	@Basic(optional = false)
-	@NonNull private float tarifJour;
+	private float tarifJour;
 	
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name="no_client")
@@ -38,7 +38,7 @@ public class Location {
 	
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name="no_exemplaire")
-	@NonNull private Exemplaire exemplaireLoue;
+	@NonNull private Exemplaire exemplaire;
 	
 
 }

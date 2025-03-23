@@ -14,4 +14,6 @@ public interface JeuRepository extends JpaRepository<Jeu, Integer>{
 			+ " where ex.louable = 1 "
 			+ " group by ex.no_jeu, j.titre, j.reference, j.description, j.tarif_jour, j.duree, j.age_min ")
 	List<Jeu> findAllJeuxAvecNbExemplaires();
+	
+	float findTarifJourByNoJeu(Integer noJeu);
 }
