@@ -2,6 +2,8 @@ create procedure init_jeu_essai
 as
 BEGIN
 	declare @no_jeu INT;
+	declare @no_client INT;
+	declare @no_exemplaire INT;
 	delete from clients;
 	delete from adresses;
 	delete from jeux_genres;
@@ -29,4 +31,7 @@ insert into jeux_genres(no_jeu, no_genre) values (@no_jeu, 3);
 insert into exemplaires (no_jeu, codebarre, louable) values (@no_jeu, '1111111111111', 1);
 insert into exemplaires (no_jeu, codebarre, louable) values (@no_jeu, '2222222222222', 0);
 insert into exemplaires (no_jeu, codebarre, louable) values (@no_jeu, '3333333333333', 1);
+select @no_client = no_client from clients where nom = 'Einstein';
+select @no_exemplaire = no_exemplaire from exemplaires where codebarre = '1111111111111';
+insert into locations (no_client, no_exemplaire, tarif_jour, date_debut) values(@no_client, @no_exemplaire, 10.0, '20250323 14:00:00')
 END;

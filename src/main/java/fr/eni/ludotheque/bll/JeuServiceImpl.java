@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import fr.eni.ludotheque.bo.Jeu;
+import fr.eni.ludotheque.dal.ExemplaireRepository;
 import fr.eni.ludotheque.dal.JeuRepository;
 import fr.eni.ludotheque.exceptions.DataNotFound;
 import lombok.NonNull;
@@ -17,6 +18,8 @@ public class JeuServiceImpl implements JeuService{
 	@NonNull
 	private JeuRepository jeuRepository;
 	
+	@NonNull
+	private ExemplaireRepository exemplaireRepository;
 	
 	@Override
 	public void ajouterJeu(Jeu jeu) {
@@ -41,8 +44,14 @@ public class JeuServiceImpl implements JeuService{
 
 
 	@Override
-	public List<Jeu> listeJeuxCatalogue() {
-		List<Jeu> jeux = jeuRepository.findAllJeuxAvecNbExemplaires();
+	public List<Jeu> listeJeuxCatalogue(String filtreTitre) {
+		List<Jeu> jeux = jeuRepository.findAllJeuxAvecNbExemplaires(filtreTitre);
+		
+		for(Jeu jeu : jeux) {
+			int nbExemplairesDisponibles = exemplaireRepository.nbExemplairesDisponibleByNoJeu(jeu.getNoJeu());
+			jeu.setNbExemplairesDisponibles(nbExemplairesDisponibles);
+		}
+		
 		return jeux;
 	}
 

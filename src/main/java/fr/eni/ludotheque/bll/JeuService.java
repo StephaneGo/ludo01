@@ -10,5 +10,6 @@ public interface JeuService {
 	
 	Jeu trouverJeuParNoJeu(Integer noJeu);
 	
-	List<Jeu> listeJeuxCatalogue();
+	List<Jeu> listeJeuxCatalogue(String filtreTitre);
+		
 }

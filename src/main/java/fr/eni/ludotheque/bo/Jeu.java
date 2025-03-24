@@ -55,6 +55,9 @@ public class Jeu {
 	@Transient
 	private int nbExemplaires;
 	
+	@Transient
+	private int nbExemplairesDisponibles;
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "JEUX_GENRES", 
 		joinColumns = @JoinColumn(name="no_jeu"),

@@ -54,9 +54,10 @@ public class JeuServiceTestDAL {
 	@DisplayName("Test trouver les jeux et le nb d'exemplaires disponible")
 	public void testTrouverJeuxDisponibles() {
 		
-		List<Jeu> jeux = jeuService.listeJeuxCatalogue();
+		List<Jeu> jeux = jeuService.listeJeuxCatalogue("TOUS");
 		
-		log.debug(jeux.toString());
+		jeux.forEach(System.out::println);
+		log.info(jeux.toString());
 	}
 
 
