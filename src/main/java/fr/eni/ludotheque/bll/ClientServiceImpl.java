@@ -10,6 +10,7 @@ import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.dal.AdresseRepository;
 import fr.eni.ludotheque.dal.ClientRepository;
+import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
 import fr.eni.ludotheque.exceptions.DataNotFound;
 import lombok.NonNull;
@@ -56,9 +57,6 @@ public class ClientServiceImpl implements ClientService{
 
 	@Override
 	public Client modifierClient(Integer noClient, ClientDTO clientDto) {
-		if(! clientRepository.existsById(noClient)) {
-			throw new IllegalStateException();
-		}
 		Client client = clientRepository.findById(noClient).orElseThrow(()->new DataNotFound("Client", noClient));
 		
 		BeanUtils.copyProperties(clientDto, client);
@@ -70,11 +68,14 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	public void modifierAdresse(Adresse adresse) {
-		if(adresse.getNoAdresse()==null){
-			throw new IllegalStateException();
-		}
-		adresseRepository.save(adresse);
+	public Client modifierAdresse(Integer noClient, AdresseDTO adresseDto) {
+		Client client = clientRepository.findById(noClient).orElseThrow(()->new DataNotFound("Client", noClient));
+		
+		BeanUtils.copyProperties(adresseDto, client.getAdresse());
+		
+		adresseRepository.save(client.getAdresse());
+		
+		return client;
 		
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.dal.AdresseRepository;
+import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
 import jakarta.transaction.Transactional;
 
@@ -61,12 +62,14 @@ public class ClientServiceTestDAL {
 		BeanUtils.copyProperties(adresse, clientDto);
 
 		Client newClient = clientService.ajouterClient(clientDto);
-		newClient.getAdresse().setRue("rue des mouettes");
-		newClient.getAdresse().setCodePostal("79000");
-		newClient.getAdresse().setVille("Niort");
+		
+		AdresseDTO newAdresse = new AdresseDTO();
+		newAdresse.setRue("rue des mouettes");
+		newAdresse.setCodePostal("79000");
+		newAdresse.setVille("Niort");
 		
 		// Act
-		clientService.modifierAdresse(newClient.getAdresse());
+		Client clientBase = clientService.modifierAdresse(newClient.getNoClient(), newAdresse);
 
 		// Assert
 		Optional<Adresse> newAdresseOpt = adresseRepository.findById(newClient.getAdresse().getNoAdresse());
