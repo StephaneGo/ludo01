@@ -78,6 +78,17 @@ public class ClientServiceImpl implements ClientService{
 		
 	}
 
+	@Override
+	public void supprimerClient(Integer noClient) {
+		clientRepository.deleteById(noClient);
+		
+	}
+
+	@Override
+	public List<Client> trouverTousLesClients() {
+		return clientRepository.findAll();
+	}
+
 	
 
 }
