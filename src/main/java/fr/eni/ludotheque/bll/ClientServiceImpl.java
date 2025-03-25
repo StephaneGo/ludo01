@@ -32,7 +32,7 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	public Client trouverClientParId(Integer id) {
+	public Client trouverClientParId(Integer id)  {
 		
 		Optional<Client> optClient = clientRepository.findById(id);
 		if(optClient.isEmpty()) {

@@ -24,9 +24,22 @@ public class JeuServiceTestDAL {
 	private JeuService jeuService;
 
 
+	@Test
+	public void testTrouverJeuParNoJeu() {
+		Jeu jeuDB = null;
+		try {
+			jeuDB = jeuService.trouverJeuParNoJeu(1);
+		}catch(DataNotFound dnf) {
+			fail();
+			return;
+		}
+		log.info(jeuDB.toString());
+
+	}
+	
 	//@Test
 	//@DisplayName("Test ajout jeu")
-	//@Transactional
+	//	@Transactional
 	public void testAjoutJeu() {
 		// Arrange
 		Jeu jeu = new Jeu("Welcome", "refWelcome", 10.2f);

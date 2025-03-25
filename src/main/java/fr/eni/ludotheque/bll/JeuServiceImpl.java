@@ -27,7 +27,6 @@ public class JeuServiceImpl implements JeuService{
 		jeuRepository.save(jeu);
 		
 		
-		
 	}
 
 
