@@ -14,7 +14,7 @@ public interface ClientService {
 	
 	List<Client> trouverClientsParNom(String nom);
 	
-	void modifierClient(Client client);
+	Client modifierClient(Integer noClient, ClientDTO clientDto);
 	
 	void modifierAdresse(Adresse adresse);
 }

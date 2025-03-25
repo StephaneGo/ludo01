@@ -32,21 +32,21 @@ public class ClientServiceTestDAL {
 	@Transactional
 	public void testModifierClient() {
 		// Arrange
-		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
-		Client client = new Client("nX", "pX", "eX", "telX", adresse);
-		ClientDTO clientDto = new ClientDTO();
-		BeanUtils.copyProperties(client, clientDto);
-		BeanUtils.copyProperties(adresse, clientDto);
-		
+		ClientDTO clientDto = new ClientDTO("nX", "pX", "eX", "telX","rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
 		Client newClient = clientService.ajouterClient(clientDto);
 
-		newClient.setEmail("bob@free.fr");
+		clientDto.setEmail("bob@free.fr");
+		clientDto.setNom("nXX");
+		clientDto.setPrenom("pXX");
+		
 		// Act
-		clientService.modifierClient(newClient);
+		clientService.modifierClient(newClient.getNoClient(),clientDto);
 
 		// Assert
 		Client client2 = clientService.trouverClientParId(newClient.getNoClient());
 		assertThat(client2.getEmail()).isEqualTo(newClient.getEmail());
+		assertThat(client2.getNom()).isEqualTo(newClient.getNom());
+		assertThat(client2.getPrenom()).isEqualTo(newClient.getPrenom());
 	}
 
 	@Test

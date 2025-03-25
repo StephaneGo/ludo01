@@ -55,11 +55,18 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	public void modifierClient(Client client) {
-		if(client.getNoClient()==null) {
+	public Client modifierClient(Integer noClient, ClientDTO clientDto) {
+		if(! clientRepository.existsById(noClient)) {
 			throw new IllegalStateException();
 		}
+		Client client = clientRepository.findById(noClient).orElseThrow(()->new DataNotFound("Client", noClient));
+		
+		BeanUtils.copyProperties(clientDto, client);
+		BeanUtils.copyProperties(clientDto, client.getAdresse());
+		
 		clientRepository.save(client);
+		
+		return client;
 	}
 
 	@Override
