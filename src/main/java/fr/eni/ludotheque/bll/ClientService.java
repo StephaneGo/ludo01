@@ -4,10 +4,11 @@ import java.util.List;
 
 import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
+import fr.eni.ludotheque.dto.ClientDTO;
 
 public interface ClientService {
 	
-	void ajouterClient(Client client);
+	Client ajouterClient(ClientDTO client);
 	
 	Client trouverClientParId(Integer id);
 	

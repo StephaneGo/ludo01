@@ -17,7 +17,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.dal.ClientRepository;
-import jakarta.transaction.Transactional;
+import fr.eni.ludotheque.dto.ClientDTO;
 
 @SpringBootTest
 public class ClientServiceTest {
@@ -34,6 +34,7 @@ public class ClientServiceTest {
 		//Arrange
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
 		Client client = new Client("n1", "p1", "e1", "tel1", adresse);
+		ClientDTO clientDto = new ClientDTO("n1", "p1", "e1", "tel1", "rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
 		
 		org.mockito.Mockito.doAnswer((invocation) -> {
 			Client cli = invocation.getArgument(0);
@@ -42,7 +43,7 @@ public class ClientServiceTest {
 						}).when(clientRepository).save(client);
 		
 		//Act
-		clientService.ajouterClient(client);
+		clientService.ajouterClient(clientDto);
 
 		//Assert
 		assertThat(client.getNoClient()).isNotNull();

@@ -8,12 +8,14 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.dal.AdresseRepository;
+import fr.eni.ludotheque.dto.ClientDTO;
 import jakarta.transaction.Transactional;
 
 @SpringBootTest
@@ -32,15 +34,19 @@ public class ClientServiceTestDAL {
 		// Arrange
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
 		Client client = new Client("nX", "pX", "eX", "telX", adresse);
-		clientService.ajouterClient(client);
+		ClientDTO clientDto = new ClientDTO();
+		BeanUtils.copyProperties(client, clientDto);
+		BeanUtils.copyProperties(adresse, clientDto);
+		
+		Client newClient = clientService.ajouterClient(clientDto);
 
-		client.setEmail("bob@free.fr");
+		newClient.setEmail("bob@free.fr");
 		// Act
-		clientService.modifierClient(client);
+		clientService.modifierClient(newClient);
 
 		// Assert
-		Client client2 = clientService.trouverClientParId(client.getNoClient());
-		assertThat(client2.getEmail()).isEqualTo(client.getEmail());
+		Client client2 = clientService.trouverClientParId(newClient.getNoClient());
+		assertThat(client2.getEmail()).isEqualTo(newClient.getEmail());
 	}
 
 	@Test
@@ -50,23 +56,26 @@ public class ClientServiceTestDAL {
 		// Arrange
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
 		Client client = new Client("nX", "pX", "eX", "telX", adresse);
-		clientService.ajouterClient(client);
-		adresse.setRue("rue des mouettes");
-		adresse.setCodePostal("79000");
-		adresse.setVille("Niort");
+		ClientDTO clientDto = new ClientDTO();
+		BeanUtils.copyProperties(client, clientDto);
+		BeanUtils.copyProperties(adresse, clientDto);
+
+		Client newClient = clientService.ajouterClient(clientDto);
+		newClient.getAdresse().setRue("rue des mouettes");
+		newClient.getAdresse().setCodePostal("79000");
+		newClient.getAdresse().setVille("Niort");
 		
 		// Act
-		clientService.modifierAdresse(adresse);
+		clientService.modifierAdresse(newClient.getAdresse());
 
 		// Assert
-		Optional<Adresse> newAdresseOpt = adresseRepository.findById(adresse.getNoAdresse());
+		Optional<Adresse> newAdresseOpt = adresseRepository.findById(newClient.getAdresse().getNoAdresse());
 
 		if (newAdresseOpt.isEmpty()) {
 			fail();
 		} else {
-			assertThat(adresse).isEqualTo(newAdresseOpt.get());
+			assertThat(newClient.getAdresse()).isEqualTo(newAdresseOpt.get());
 		}
-
 		
 	}
 
