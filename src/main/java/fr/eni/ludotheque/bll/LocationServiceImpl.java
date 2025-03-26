@@ -13,6 +13,7 @@ import fr.eni.ludotheque.bo.Location;
 import fr.eni.ludotheque.dal.ExemplaireRepository;
 import fr.eni.ludotheque.dal.JeuRepository;
 import fr.eni.ludotheque.dal.LocationRepository;
+import fr.eni.ludotheque.dto.LocationDTO;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -31,16 +32,17 @@ public class LocationServiceImpl implements LocationService{
 
 	
 	@Override
-	public void ajouterLocation(Integer noClient, String codebarre  ) {
-		Exemplaire exemplaire = exemplaireRepository.findByCodebarreWithJeu(codebarre);
+	public Location ajouterLocation(LocationDTO locationDto  ) {
+		Exemplaire exemplaire = exemplaireRepository.findByCodebarreWithJeu(locationDto.getCodebarre());
 		Client client = new Client();
-		client.setNoClient(noClient);
+		client.setNoClient(locationDto.getNoClient());
 					
 		Location location = new Location(LocalDateTime.now(),client, exemplaire );
 		float tarifJour = jeuRepository.findTarifJourByNoJeu(exemplaire.getJeu().getNoJeu());
 		location.setTarifJour(tarifJour);
-		locationRepository.save(location);
+		Location newLoc = locationRepository.save(location);
 		
+		return newLoc;
 	}
 
 	@Override

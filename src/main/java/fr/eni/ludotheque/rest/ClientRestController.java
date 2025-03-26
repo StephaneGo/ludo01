@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.eni.ludotheque.bll.ClientService;
 import fr.eni.ludotheque.bo.Client;
+import fr.eni.ludotheque.bo.Jeu;
 import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
 import fr.eni.ludotheque.exceptions.DataNotFound;
@@ -45,7 +46,7 @@ public class ClientRestController {
         }
         return ResponseEntity.ok(new ApiResponse(true, "ok", client));
     }
-    
+        
     @PostMapping
     public ResponseEntity<ApiResponse<Client>> ajouterClient(@RequestBody ClientDTO client) {
         Client nouveauClient = clientService.ajouterClient(client);
