@@ -20,6 +20,7 @@ import fr.eni.ludotheque.bo.Jeu;
 import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
 import fr.eni.ludotheque.exceptions.DataNotFound;
+import fr.eni.ludotheque.exceptions.EmailClientAlreadyExistException;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -49,7 +50,13 @@ public class ClientRestController {
         
     @PostMapping
     public ResponseEntity<ApiResponse<Client>> ajouterClient(@RequestBody ClientDTO client) {
-        Client nouveauClient = clientService.ajouterClient(client);
+        Client nouveauClient=null;
+		try {
+			nouveauClient = clientService.ajouterClient(client);
+		} catch (EmailClientAlreadyExistException e) {
+			ApiResponse<Client> apiResponse = new ApiResponse(false, "erreur de validation: email existe déjà.", null);
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
+		}
         ApiResponse<Client> apiResponse = new ApiResponse(true, "ok", nouveauClient);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }

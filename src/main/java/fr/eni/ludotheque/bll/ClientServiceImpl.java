@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import fr.eni.ludotheque.bo.Adresse;
@@ -13,6 +14,7 @@ import fr.eni.ludotheque.dal.ClientRepository;
 import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
 import fr.eni.ludotheque.exceptions.DataNotFound;
+import fr.eni.ludotheque.exceptions.EmailClientAlreadyExistException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -26,14 +28,18 @@ public class ClientServiceImpl implements ClientService{
 	private AdresseRepository adresseRepository;
 	
 	@Override
-	public Client ajouterClient(ClientDTO clientDto) {
+	public Client ajouterClient(ClientDTO clientDto)  {
 		
 		Client client = new Client();
 		Adresse adresse = new Adresse();
 		BeanUtils.copyProperties(clientDto, client);
 		BeanUtils.copyProperties(clientDto, adresse);
 		client.setAdresse(adresse);
-		clientRepository.save(client);
+		try {
+			clientRepository.save(client);
+		}catch(DataIntegrityViolationException ex) {
+			throw new EmailClientAlreadyExistException();
+		}
 		Client newClient = clientRepository.findById(client.getNoClient()).orElseThrow(()->new DataNotFound("Client", client.getNoClient()));
 		
 		return newClient;

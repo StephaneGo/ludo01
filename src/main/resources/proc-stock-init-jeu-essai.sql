@@ -4,12 +4,16 @@ BEGIN
 	declare @no_jeu INT;
 	declare @no_client INT;
 	declare @no_exemplaire INT;
+	delete from locations;
 	delete from clients;
 	delete from adresses;
 	delete from jeux_genres;
 	delete from exemplaires;
 	delete from jeux;
 	delete from genres;
+	delete from roles;
+insert into roles (no_role, libelle) values (1, 'ADMIN');	
+insert into roles (no_role, libelle) values (2, 'EMPLOYE');
 insert into genres (no_genre, libelle) values (1, 'Jeu de plateau');
 insert into genres (no_genre, libelle) values (2, 'Jeu de cartes');
 insert into genres (no_genre, libelle) values (3, 'Jeu de stratégie');

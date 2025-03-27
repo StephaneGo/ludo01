@@ -5,6 +5,7 @@ import java.util.List;
 import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
+import fr.eni.ludotheque.exceptions.EmailClientAlreadyExistException;
 
 public interface ClientService {
 	
